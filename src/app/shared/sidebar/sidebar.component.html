@@ -1,0 +1,14 @@
+<div class="logo" routerLink="/home">
+</div>
+<ul nz-menu [nzTheme]="theme?'dark':'light'" [nzMode]="isCollapsed?'vertical':'inline'">
+  <li nz-submenu *ngFor="let menu of menulist | orderBy: 'Seq'" [(nzOpen)]="menu.open" (nzOpenChange)="openChange(menulist, menu.Url)">
+    <span title>
+      <i class="anticon anticon-user"></i>
+      <span class="nav-text">{{menu.Name}}</span>
+    </span>
+    <ul>
+      <li nz-menu-item *ngFor="let submenu of menu.Item | orderBy: 'Seq'" routerLink="{{submenu.Url}}"
+        [routerLinkActiveOptions]="{exact: true}" [routerLinkActive]="['ant-menu-item-selected']">{{submenu.Name}}</li>
+    </ul>
+  </li>
+</ul>

@@ -1,0 +1,35 @@
+<div class="form-login">
+  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm(validateForm)">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="anticon anticon-user">
+          <input type="text" nz-input formControlName="Username" placeholder="Username">
+        </nz-input-group>
+        <nz-form-explain *ngIf="validateForm.get('Username').dirty && validateForm.get('Username').errors">Please input
+          your username!</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="anticon anticon-lock">
+          <input type="password" nz-input formControlName="Password" placeholder="Password">
+        </nz-input-group>
+        <nz-form-explain *ngIf="validateForm.get('Password').dirty && validateForm.get('Password').errors">Please input
+          your Password!</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <label nz-checkbox formControlName="remember">
+          <span>Remember me</span>
+        </label>
+        <a class="login-form-forgot" class="login-form-forgot">Forgot password</a>
+        <button nz-button class="login-form-button" [nzType]="'primary'" [nzLoading]="loading">Log in</button>
+        Or
+        <a href="">register now!</a>
+      </nz-form-control>
+      <nz-alert nzType="error" [nzMessage]="status" [nzDescription]="error" nzShowIcon *ngIf="error">
+      </nz-alert>
+    </nz-form-item>
+  </form>
+</div>

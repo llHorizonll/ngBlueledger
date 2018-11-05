@@ -1,0 +1,31 @@
+<nz-header>
+  <div class="trigger" (click)="isCollapsed=!isCollapsed">
+    <i class="anticon" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed"></i>
+  </div>
+  <div class="rightnav">
+    <!-- <div class="trigger">
+      <i class="anticon anticon-mail"></i>
+    </div> -->
+    <div class="rightmenu">
+      <ul nz-menu [nzMode]="'horizontal'">
+        <li nz-submenu style="min-width: 60px;">
+          <span title>
+            <nz-avatar nzIcon="anticon anticon-user"></nz-avatar>
+            {{user}}
+            <i class="anticon anticon-down"></i>
+          </span>
+          <ul>
+            <li nz-menu-item [routerLink]="['/login']" (click)="onLoggedout()">Sign out</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <ng-template #contentTemplate>
+    <div>
+      <ul>
+        <li nz-menu-item [routerLink]="['/login']" (click)="onLoggedout()">Sign out</li>
+      </ul>
+    </div>
+  </ng-template>
+</nz-header>

@@ -1,0 +1,43 @@
+.ant-layout-header {
+  padding: unset;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  height: 47px;
+  background-color: #fff;
+  z-index: 999;
+}
+
+.ant-menu-horizontal {
+  border: none;
+  display: inline-block;
+}
+
+.trigger {
+  width: 47px;
+  height: 47px;
+  line-height: 47px;
+  text-align: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: color .3s;
+}
+
+.rightnav {
+  display: flex;
+  padding-right: 10px;
+}
+
+.rightnav .rightmenu {
+  height: 47px;
+  line-height: 47px;
+  text-align: center;
+}
+
+.ant-menu-submenu>.ant-menu {
+  min-width: unset !important;
+}
+
+:host ::ng-deep .anticon {
+  margin-right: unset;
+}
