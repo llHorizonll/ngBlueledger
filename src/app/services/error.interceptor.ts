@@ -9,14 +9,14 @@ import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 
 import { AuthService } from "./auth.service";
-import { PreloaderService } from "../shared/preloader/preloader.service";
+import { NzMessageService } from 'ng-zorro-antd';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
-    private preLoaderService: PreloaderService
-  ) {}
+    private message: NzMessageService
+  ) { }
 
   intercept(
     request: HttpRequest<any>,
@@ -26,14 +26,12 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError(err => {
         console.log(err);
         if (err.status === 401 || err.status === 400) {
-          this.preLoaderService.setShowPreloader(true);
           // auto logout if 401 response returned from api
-          //this.alertService
           this.authService.logout();
           //location.reload(true);
         }
-
-        const error = err.error.message || err.statusText;
+        const error = err.error.Message || err.error.message || err.statusText;
+        this.message.create('error', `${error}`);
         return throwError(error);
       })
     );

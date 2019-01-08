@@ -1,3 +1,26 @@
-<p>
-  list works!
-</p>
+<div class="pa3 bg-white">
+  <nz-skeleton [nzLoading]="!data" [nzActive]="true" [nzAvatar]="true">
+    <nz-table #basicTable [nzData]="data" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" [nzTotal]="total"
+      nzShowSizeChanger nzShowQuickJumper [nzFrontPagination]="false" [nzWidthConfig]="['80px','80px','200px','80px','50px']"
+      nzSize="middle">
+      <thead (nzSortChange)="sort($event)">
+        <tr>
+          <th nzShowSort nzSortKey="VoucherNo">VoucherNo</th>
+          <th nzShowSort nzSortKey="EntryDate">EntryDate</th>
+          <th nzShowSort nzSortKey="Description">Description</th>
+          <th nzShowSort nzSortKey="TotalAmount">TotalAmount</th>
+          <th nzShowSort nzSortKey="DocumentStatus">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of basicTable.data">
+          <td>{{item.VoucherNo}}</td>
+          <td> <a routerLink="{{item.Id}}"> {{item.EntryDate}}</a> </td>
+          <td>{{item.Description}}</td>
+          <td>{{item.TotalAmount}}</td>
+          <td>{{item.DocumentStatus}}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-skeleton>
+</div>

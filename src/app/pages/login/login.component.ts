@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   validateForm: FormGroup;
   status: number;
   error: string;
+
   submitForm(): void {
     this.loading = true;
     for (const i in this.validateForm.controls) {
@@ -22,15 +23,12 @@ export class LoginComponent implements OnInit {
     }
     this.authService.login(this.validateForm.value).subscribe(
       data => {
-        console.log(data);
         this.router.navigate([this.returnUrl]);
       },
       error => {
-        console.log(error);
-        this.status = error.status;
-        this.error = error.error.ErrorMessage;
-        this.alertService.error(error);
         this.loading = false;
+        this.error = error;
+        this.alertService.error(error);
       }
     );
   }
@@ -41,7 +39,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private alertService: AlertService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";

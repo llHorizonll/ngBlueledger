@@ -4,6 +4,10 @@ import { Routes, RouterModule } from "@angular/router";
 import { PrefixlistComponent } from "./prefixlist/prefixlist.component";
 import { ListComponent } from "./list/list.component";
 import { DetailComponent } from "./detail/detail.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NgPipesModule } from "ngx-pipes";
+import { NgZorroAntdModule } from "ng-zorro-antd";
+import { StandardVoucherService } from "./standardvoucher.service";
 
 const routes: Routes = [
   {
@@ -11,17 +15,18 @@ const routes: Routes = [
     component: PrefixlistComponent
   },
   {
-    path: "list",
+    path: ":prefix",
     component: ListComponent
   },
   {
-    path: "detail",
+    path: ":prefix/:id",
     component: DetailComponent
   }
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(routes)],
-  declarations: [PrefixlistComponent, ListComponent, DetailComponent]
+  imports: [CommonModule, FormsModule, RouterModule.forChild(routes), NgPipesModule, ReactiveFormsModule, NgZorroAntdModule],
+  declarations: [PrefixlistComponent, ListComponent, DetailComponent],
+  providers: [StandardVoucherService]
 })
-export class StandardvoucherModule {}
+export class StandardvoucherModule { }

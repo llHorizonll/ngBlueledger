@@ -1,3 +1,157 @@
-<p>
-  detail works!
-</p>
+<form nz-form [nzLayout]="'inline'" [formGroup]="detailFG" (ngSubmit)="save($event,detailFG.value)">
+  <div class="pa3 mb3 bg-white flex flex-wrap">
+    <div class="ant-col-xs-24">
+      <nz-form-item class="ant-col-xs-24 ant-col-sm-12 ant-col-md-5">
+        <nz-form-label nz-col class="tl">Voucher No</nz-form-label>
+        <nz-form-control nz-col>
+          <input nz-input formControlName="VoucherNo">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="ant-col-xs-24  ant-col-sm-12 ant-col-md-5">
+        <nz-form-label nz-col nzRequired class="tl">Entry Date </nz-form-label>
+        <nz-form-control nz-col>
+          <nz-date-picker formControlName="EntryDate"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="ant-col-xs-24  ant-col-sm-12 ant-col-md-6">
+        <nz-form-label nz-col class="tl">PostReference</nz-form-label>
+        <nz-form-control nz-col>
+          <input nz-input formControlName="PostReference">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="ant-col-xs-24 ant-col-sm-12 ant-col-md-6">
+        <nz-form-label nz-col class="tl">Current Status</nz-form-label>
+        <nz-form-control nz-col>
+          <input nz-input formControlName="DocumentStatus">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="ant-col-xs-24 ant-col-sm-12 ant-col-md-24">
+        <nz-form-label nz-col nzLg="3" nzXs="24" class="tl">Description</nz-form-label>
+        <nz-form-control nz-col nzLg="14" nzXs="20" style="display: contents !important;">
+          <textarea formControlName="Description" nz-input rows="3" placeholder="Description"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div class="pa3 mb3 bg-white">
+    <nz-table class="dn db-ns" nzShowPagination=false #editRowTable nzSize="small" [nzData]="ViewVoucherTransaction.controls"
+      [nzFooter]="footerTemplate">
+      <thead>
+        <tr>
+          <th nzWidth="5%">No</th>
+          <th nzWidth="15%">Department</th>
+          <th nzWidth="15%">Account</th>
+          <th nzWidth="20%">Description</th>
+          <th nzWidth="15%" style="text-align: right !important">Ex.Rate</th>
+          <th nzWidth="15%" style="text-align: right !important">Debit</th>
+          <th nzWidth="15%" style="text-align: right !important">Credit</th>
+          <th nzShowExpand></th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let data of editRowTable.data;">
+        <tr>
+          <td>
+            {{data.value.Seq}}
+          </td>
+          <td>
+            {{data.value.Department}} : {{data.value.DepartmentDesc}}
+          </td>
+          <td>
+            {{data.value.Department}} : {{data.value.DepartmentDesc}}
+          </td>
+          <td>
+            {{data.value.Description}}
+          </td>
+          <td class="tr">
+            {{data.value.Currency}} {{data.value.ExchangeRate}}
+          </td>
+          <td class="tr">
+            {{data.value.Debit}}
+          </td>
+          <td class="tr">
+            {{data.value.Credit}}
+          </td>
+          <td nzShowExpand [(nzExpand)]="data.expand"></td>
+        </tr>
+        <tr [nzExpand]="data.expand">
+          <td></td>
+          <td colspan="7" style="color: rgba(0,0,0,.85);font-weight: 500;">Dimension</td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <br>
+  </div>
+  <ng-template #footerTemplate>
+    <table>
+      <tr>
+        <td class="text-right pr1" style="color: rgba(0,0,0,.85);font-weight: 500;">Total Base Amt.</td>
+        <td width="14%" class="text-right pr1" id="base-debit">12,345.00</td>
+        <td width="14%" class="text-right pl1" id="base-credit">12,345.00</td>
+        <td width="50px"></td>
+      </tr>
+    </table>
+  </ng-template>
+</form>
+<div class="pa3 mb3 bg-white">
+  <nz-tabset nzSize="small">
+    <nz-tab nzTitle="Comments">
+      <nz-list [nzDataSource]="commentData" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
+        <ng-template #item let-item>
+          <nz-list-item [nzContent]="nzContent" [nzActions]="[editAction,moreAction]">
+            <nz-skeleton [nzAvatar]="true" [nzActive]="true" [nzTitle]="true" [nzLoading]="false" style="width:60%;">
+              <ng-template #editAction><a (click)="editComment(item)">edit</a></ng-template>
+              <ng-template #moreAction><a (click)="DeleteComment(item)">delete</a></ng-template>
+              <nz-list-item-meta [nzTitle]="nzTitle" [nzAvatar]="nzAvatar" [nzDescription]="item.Description">
+                <ng-template #nzTitle>
+                  <b>{{item.Name}}</b>
+                </ng-template>
+                <ng-template #nzAvatar>
+                  <nz-avatar nzIcon="user"></nz-avatar>
+                </ng-template>
+                <ng-template #nzContent>
+                  {{item.CreateDate | date:'medium' }}
+                </ng-template>
+              </nz-list-item-meta>
+            </nz-skeleton>
+          </nz-list-item>
+        </ng-template>
+      </nz-list>
+    </nz-tab>
+    <nz-tab nzTitle="Attach File">
+      <!-- <nz-upload nzType="drag" [nzMultiple]="true" nzAction="https://jsonplaceholder.typicode.com/posts/"
+        [nzCustomRequest]="customReq">
+        <p class="ant-upload-drag-icon">
+          <i nz-icon type="inbox"></i>
+        </p>
+        <p class="ant-upload-text">Click or drag file to this area to upload</p>
+        <p class="ant-upload-hint">Support for a single or bulk upload. (Maximum upload file size 10 MB.)</p>
+      </nz-upload> -->
+      <nz-upload nzAction="3" [nzCustomRequest]="postAttachFile" [nzFileList]="attachFileList" [nzRemove]="removeAttachFile">
+        <button nz-button>
+          <i nz-icon type="upload"></i><span>Click to Upload</span>
+        </button>
+      </nz-upload>
+    </nz-tab>
+    <nz-tab nzTitle="Activity Log">
+      <nz-list [nzDataSource]="activityData" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
+        <ng-template #item let-item>
+          <nz-list-item [nzContent]="nzContent">
+            <nz-skeleton [nzAvatar]="true" [nzActive]="true" [nzTitle]="true" [nzLoading]="false" style="width:60%;">
+              <nz-list-item-meta [nzTitle]="nzTitle" [nzAvatar]="nzAvatar" [nzDescription]="item.Description">
+                <ng-template #nzTitle>
+                  <b>{{item.Name}}</b>
+                </ng-template>
+                <ng-template #nzAvatar>
+                  <nz-avatar nzIcon="user"></nz-avatar>
+                </ng-template>
+                <ng-template #nzContent>
+                  {{item.CreateDate | date:'medium' }}
+                </ng-template>
+              </nz-list-item-meta>
+            </nz-skeleton>
+          </nz-list-item>
+        </ng-template>
+      </nz-list>
+    </nz-tab>
+  </nz-tabset>
+</div>

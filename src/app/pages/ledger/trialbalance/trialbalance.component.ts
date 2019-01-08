@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BreadcrumbNavService } from 'src/app/services/breadcrumbnav.service';
 
 @Component({
   selector: 'app-trialbalance',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TrialbalanceComponent implements OnInit {
 
-  constructor() { }
+  constructor(private bnService: BreadcrumbNavService) { }
 
   ngOnInit() {
+    this.bnService.setHeader("Trial Balance")
   }
 
 }

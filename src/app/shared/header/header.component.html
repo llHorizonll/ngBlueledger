@@ -1,18 +1,13 @@
 <nz-header>
-  <div class="trigger" (click)="isCollapsed=!isCollapsed">
-    <i class="anticon" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed"></i>
-  </div>
+  <i class="trigger" nz-icon [type]="isCollapsed?'menu-unfold':'menu-fold'" (click)="isCollapsed=!isCollapsed"></i>
   <div class="rightnav">
-    <!-- <div class="trigger">
-      <i class="anticon anticon-mail"></i>
-    </div> -->
     <div class="rightmenu">
       <ul nz-menu [nzMode]="'horizontal'">
         <li nz-submenu style="min-width: 60px;">
           <span title>
-            <nz-avatar nzIcon="anticon anticon-user"></nz-avatar>
+            <nz-avatar nzIcon="user"></nz-avatar>
             {{user}}
-            <i class="anticon anticon-down"></i>
+            <i nz-icon type="caret-down" theme="outline"></i>
           </span>
           <ul>
             <li nz-menu-item [routerLink]="['/login']" (click)="onLoggedout()">Sign out</li>

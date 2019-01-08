@@ -1,3 +1,32 @@
-<p>
-  breadcrumb works!
-</p>
+<div class="breadcrumb">
+  <div *ngIf="headerNavigate | async" style="display: flex;">
+    <span style="font-size:1.8em;">
+      <b>{{headerNavigate | async}}</b>
+    </span>
+  </div>
+  <div class="breadcrumb-items">
+    <div *ngIf="newButton | async" class="breadcrumb-item">
+      <img src="../../../assets/visibleicons/add.svg" alt="New" (click)="clickNew()">
+    </div>
+    <div *ngIf="editButton | async" class="breadcrumb-item">
+      <img src="../../../assets/visibleicons/edit.svg" alt="Edit" (click)="clickEdit()">
+    </div>
+    <div *ngIf="deleteButton | async" class="breadcrumb-item">
+      <img src="../../../assets/visibleicons/delete.svg" alt="Delete" (click)="clickDelete()">
+    </div>
+    <div *ngIf="postButton | async" class="breadcrumb-item">
+      <img src="../../../assets/visibleicons/post.svg" alt="Post" (click)="clickPost()">
+    </div>
+    <div *ngIf="importButton | async" class="breadcrumb-item">
+      <img src="../../../assets/visibleicons/import.svg" alt="Import" (click)="clickImport()">
+    </div>
+    <div *ngIf="copyButton | async" class="breadcrumb-item">
+      <img src="../../../assets/visibleicons/duplicate.svg" alt="Copy" (click)="clickCopy()">
+    </div>
+    <div *ngIf="printButton | async" class="breadcrumb-item">
+      <img [ngClass]="{'disabled-item' : !printButton}" src="../../../assets/visibleicons/print.svg" alt="Print"
+        (click)="clickPrint()">
+    </div>
+    <div class="icon"></div>
+  </div>
+</div>

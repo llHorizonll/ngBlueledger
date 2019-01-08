@@ -7,10 +7,10 @@ import { AuthService } from "../../services";
   styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent implements OnInit {
-  isCollapsed = false;
+  //isCollapsed = false;
   user: string;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.user = localStorage.getItem("user") || "";

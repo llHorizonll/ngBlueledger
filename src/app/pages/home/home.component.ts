@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BreadcrumbNavService } from 'src/app/services/breadcrumbnav.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private bnService: BreadcrumbNavService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.bnService.setHeader("Dashboard");
+    this.bnService.setNewButton(false);
+    this.bnService.setEditButton(false);
+    this.bnService.setPrintButton(false);
   }
 
 }

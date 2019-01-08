@@ -1,3 +1,10 @@
-<p>
-  std prefixlist works!
-</p>
+<div nz-row [nzGutter]="6">
+  <div nz-col [nzSpan]="6" [ngStyle]="{textAlign:'center',marginBottom: '20px'}" *ngFor="let item of prefixlist | orderBy: 'Seq'"
+    routerLink="{{item.Code}}" [queryParams]="{ prefixId:item.Id }">
+    <nz-skeleton [nzLoading]="!prefixlist" [nzActive]="true" [nzAvatar]="true">
+      <nz-card nzTitle="{{item.Prefix}}" [nzHoverable]="true">
+        <p>{{item.Code}}</p>
+      </nz-card>
+    </nz-skeleton>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: #fff;
+  margin: 20px 0;
+  padding: 12px;
+}
+
+.breadcrumb-items {
+  display: flex;
+  flex-flow: wrap;
+  align-content: center;
+}
+
+.breadcrumb-item {
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+}
+
+.disabled-item {
+  cursor: pointer;
+  filter: grayscale(100%);
+}
