@@ -33,6 +33,9 @@ export class ListComponent implements OnInit {
     this.bnService.setCopyButton(false);
     this.bnService.setImportButton(false);
     this.bnService.setPrintButton(true);
+
+    this.bnService.setSaveButton(false);
+    this.bnService.setCancelButton(false);
     await this.searchData();
   }
 

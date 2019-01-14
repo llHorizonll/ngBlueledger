@@ -23,10 +23,8 @@ export class BreadcrumbComponent implements OnInit {
   constructor(
     private bnService: BreadcrumbNavService
   ) {
+    this.headerNavigate = this.bnService.breadcrumbHeader;
 
-  }
-
-  async ngOnInit() {
     this.newButton = this.bnService.showNewButton;
     this.editButton = this.bnService.showEditButton;
     this.deleteButton = this.bnService.showDeleteButton;
@@ -34,7 +32,43 @@ export class BreadcrumbComponent implements OnInit {
     this.importButton = this.bnService.showImportButton;
     this.copyButton = this.bnService.showCopyButton;
     this.printButton = this.bnService.showPrintButton;
-    this.headerNavigate = this.bnService.breadcrumbHeader;
+
+    this.cancelButton = this.bnService.showCancelButton;
+    this.saveButton = this.bnService.showSaveButton;
+  }
+
+  ngOnInit() {
+
+  }
+
+
+  clickEdit() {
+    // // set false
+    this.bnService.setNewButton(false);
+    this.bnService.setEditButton(false);
+    this.bnService.setPostButton(false);
+    this.bnService.setImportButton(false);
+    this.bnService.setCopyButton(false);
+    this.bnService.setDeleteButton(false);
+    this.bnService.setPrintButton(false);
+    // set true
+    this.bnService.setSaveButton(true);
+    this.bnService.setCancelButton(true);
+    // set event click edit
+    this.bnService.setOnEdit(true);
+  }
+
+  clickCancel() {
+    // // set true
+    // this.navService.setEditField(true);
+    // this.navService.setEditButton(true);
+    // this.navService.setPrintButton(true);
+    // this.navService.setDeleteButton(true);
+    // // set false
+    // this.navService.setSaveButton(false);
+    // this.navService.setCancelButton(false);
+    // set event click cancel
+    this.bnService.setOnCancel(true);
   }
 
 }

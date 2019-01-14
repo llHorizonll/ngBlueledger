@@ -18,7 +18,7 @@ export class DetailComponent implements OnInit {
 
   prefixId: string;
   prefix: string;
-  id: number;
+  headerId: number;
   data: [];
   commentData: [];
   attachFileList: [];
@@ -54,38 +54,28 @@ export class DetailComponent implements OnInit {
     this.bnService.setImportButton(true);
     this.bnService.setPrintButton(true);
 
+    this.bnService.setSaveButton(false);
+    this.bnService.setCancelButton(false);
+
     this.createForm();
 
-    await this.voucherEntryService.getDetail(this.id).subscribe(async (item: fromModels.voucherDetail) => {
-      let data = item['Data'];
-      await this.patchTransaction(data['ViewVoucherTransaction']);
-      this.detailFG.patchValue(data);
-      await this.voucherEntryService.getComment(data['Id']).subscribe(item => {
-        this.commentData = item['Data'];
+    this.onPageLoad();
+
+    this.bnService.onCancel
+      .subscribe(async status => {
+        if (status) {
+          await this.bnService.setOnCancel(false);
+          this.onCancel();
+
+        }
       })
-      await this.voucherEntryService.getAttachFile(data['Id']).subscribe(item => {
-        //this.attachFileList = item['Data'];
-        this.attachFileList = item['Data'].map(item => {
-          return {
-            imageId: item['ImageId'],
-            uid: item['HeaderId'],
-            name: item['Name'],
-            status: 'done',
-            url: `${environment.http_proxy}${item['DataUrl']}`,
-          }
-        })
-      })
-      await this.voucherEntryService.getActivity(data['Id']).subscribe(item => {
-        this.activityData = item['Data'];
-      })
-      this.preLoaderService.setShowPreloader(false);
-    });
+
   }
 
   async active_route() {
     await this.activeRoute.params.subscribe(p => {
       this.prefix = p['prefix'];
-      this.id = p['id'];
+      this.headerId = p['id'];
       this.prefixId = localStorage.getItem("prefixId");
 
     })
@@ -124,6 +114,33 @@ export class DetailComponent implements OnInit {
     })
   }
 
+  async onPageLoad() {
+    await this.voucherEntryService.getDetail(this.headerId).subscribe(async (item: fromModels.voucherDetail) => {
+      let data = item['Data'];
+      await this.patchTransaction(data['ViewVoucherTransaction']);
+      this.detailFG.patchValue(data);
+      await this.voucherEntryService.getComment(data['Id']).subscribe(item => {
+        this.commentData = item['Data'];
+      })
+      await this.voucherEntryService.getAttachFile(data['Id']).subscribe(item => {
+        //this.attachFileList = item['Data'];
+        this.attachFileList = item['Data'].map(item => {
+          return {
+            imageId: item['ImageId'],
+            uid: item['HeaderId'],
+            name: item['Name'],
+            status: 'done',
+            url: `${environment.http_proxy}${item['DataUrl']}`,
+          }
+        })
+      })
+      await this.voucherEntryService.getActivity(data['Id']).subscribe(item => {
+        this.activityData = item['Data'];
+      })
+      this.preLoaderService.setShowPreloader(false);
+    });
+  }
+
   submitForm = ($event, value) => {
     $event.preventDefault();
     for (const key in this.detailFG.controls) {
@@ -137,4 +154,20 @@ export class DetailComponent implements OnInit {
 
   removeAttachFile = this.voucherEntryService.removeAttachFile;
 
+  private navigateToManage = () => this.router.navigate([`/GeneralLedger/Voucher Entry/`, this.prefix]);
+
+  private onRefreshPage = () => this.router.navigate([`/GeneralLedger/Voucher Entry/`, this.prefix, this.headerId]);
+
+  private onCancel() {
+    //this.navigateToManage();
+    this.onRefreshPage();
+    // switch (this.mode) {
+    //   case 'C':
+    //     this.navigateToManage();
+    //     break;
+    //   case 'R':
+    //     this.onRefreshPage();
+    //     break;
+    // }
+  }
 }
