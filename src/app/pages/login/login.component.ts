@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
     this.validateForm = this.fb.group({
-      Username: ["test", [Validators.required]],
+      Username: ["systemadmin", [Validators.required]],
       Password: ["1234", [Validators.required]],
       remember: [true]
     });

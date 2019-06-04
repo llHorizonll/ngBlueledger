@@ -21,17 +21,19 @@ export class AuthService {
   login(value: any) {
     return this.http
       .post<any>(
-        `${environment.http_proxy}/SYS/Auth.svc/Login`,
+        `${environment.http_proxy}/SYS/Authen.svc/Json/Login`,
         // `${appConfig.apiUrl}/SYS/Auth.svc/Login`,
         {
-          Username: value.Username,
-          Password: value.Password
+          //Username: value.Username,
+          //Password: value.Password,
+          username: value.Username,
+          password: value.Password,
         },
         this.httpOptions
       )
       .pipe(
         map(user => {
-          // user = JSON.parse(user);
+           user = JSON.parse(user);
           // login successful if there's a jwt token in the response
           if (user) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes

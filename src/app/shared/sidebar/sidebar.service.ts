@@ -13,7 +13,7 @@ export class SidebarService {
 
   private async resposePromisGet(params: string, url: string) {
     var res = await this.http.get<any>(url, this.httpOptions).toPromise();
-    //res = JSON.parse(res)
+    res = JSON.parse(res)
     const IsSuccess = new Boolean(res.Response.Result);
     if (!IsSuccess) {
       return [];
@@ -25,8 +25,8 @@ export class SidebarService {
   }
 
   getMenuSidebar() {
-    const url = `${environment.http_proxy}/MENU/Menu.svc/menu/list`;
-    //const url = `${environment.http_proxy}/MENU/Menu.svc/Json/G/MENULIST`;
+    //const url = `${environment.http_proxy}/MENU/Menu.svc/menu/list`;
+    const url = `${environment.http_proxy}/MENU/Menu.svc/Json/G/MENULIST`;
     return this.resposePromisGet("", url);
   }
 }

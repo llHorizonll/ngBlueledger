@@ -1,4 +1,5 @@
-<li nz-submenu *ngFor="let menu of menulist | orderBy: 'Seq'" [(nzOpen)]="menu.open" (nzOpenChange)="openChange(menulist, menu.Url)">
+<li nz-submenu *ngFor="let menu of menulist | orderBy: 'Seq'" [(nzOpen)]="menu.open"
+  (nzOpenChange)="openChange(menulist, menu.Url)">
   <span title>
     <i nz-icon type="user"></i>
     <span class="nav-text">{{menu.Name}}</span>

@@ -1,6 +1,6 @@
 {
-  "/api": {
-    "target": "http://localhost:80/Publish",
+  "/api/*": {
+    "target": "http://developer.blueledgers.com/genex.wcf",
     "secure": false,
     "pathRewrite": {
       "^/api": ""
